@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Pagination } from '@mui/material';
 
 class PlantlistsContainer extends Component {
   constructor(props) {
@@ -12,7 +13,11 @@ class PlantlistsContainer extends Component {
   loadPlantlists() {
     axios.get("https://leaf-ledger-be.herokuapp.com/api/v1/plants")
       .then((res) => { 
-        this.setState({ plantlists: res.data.data, linkHeaders: res.headers['link'], totalPlants: res.headers['total'] });
+        this.setState({ 
+          plantlists: res.data.data, 
+          linkHeaders: res.headers['link'], 
+          totalPlants: res.headers['total'],
+          perPage: res.headers['per-page']});
       })
       .catch((error) => console.log(error));
   }
@@ -44,7 +49,7 @@ class PlantlistsContainer extends Component {
               );
             })}
           </ul>
-          There are {Math.ceil(this.state.totalPlants / 25)} pages of plants
+          <Pagination count={Math.ceil(this.state.totalPlants / this.state.perPage)} />
         </div>
       </div>
     );
