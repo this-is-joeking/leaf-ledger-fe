@@ -36,10 +36,9 @@ export default function Plantlist() {
           type="text"
           placeholder="Search for a plant by common name"
           maxLength="75"
-          // onKeyPress={this.createPlant}
         />
       </div>
-      {/* There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly */}
+      There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
       <div className="wrapPlant">
         <ul className="listPlants">
           {allPlants.map((plant) => {
