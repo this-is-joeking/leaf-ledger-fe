@@ -5,14 +5,14 @@ class PlantlistsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      plantlists: [],
+      plantlists: []
     };
   }
 
   loadPlantlists() {
     axios.get("https://leaf-ledger-be.herokuapp.com/api/v1/plants")
-      .then((res) => {
-        this.setState({ plantlists: res.data.data });
+      .then((res) => { 
+        this.setState({ plantlists: res.data.data, linkHeaders: res.headers['link'], totalPlants: res.headers['total'] });
       })
       .catch((error) => console.log(error));
   }
@@ -28,12 +28,13 @@ class PlantlistsContainer extends Component {
           <input
             className="newPlant"
             type="text"
-            placeholder="Input a New Plant and Press Enter"
+            placeholder="Search for a plant by common name"
             maxLength="75"
             // onKeyPress={this.createPlant}
           />
         </div>
-        <div className="wrapPlants">
+        There are {this.state.totalPlants} plants in our system currently, but we are working on ways to grow this quickly
+        <div className="wrapPlant">
           <ul className="listPlants">
             {this.state.plantlists.map((plantlist) => {
               return (
@@ -43,6 +44,7 @@ class PlantlistsContainer extends Component {
               );
             })}
           </ul>
+          There are {Math.ceil(this.state.totalPlants / 25)} pages of plants
         </div>
       </div>
     );
