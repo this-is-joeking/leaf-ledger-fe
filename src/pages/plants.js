@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PlantlistsContainer from "../components/PlantlistsContainer";
+import Plantlist from "../components/Plantlist";
 import '../App.css';
 
 class Plants extends Component {
@@ -9,7 +9,7 @@ class Plants extends Component {
         <div className="topHeading">
           <h1>Plants</h1>
         </div>
-        <PlantlistsContainer />
+        <Plantlist />
       </div>
     );
   }
