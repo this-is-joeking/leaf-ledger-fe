@@ -44,7 +44,7 @@ export default function Plantlist() {
           {allPlants.map((plant) => {
             return (
               <li className="plant" plant={plant} key={plant.id}>
-                <label className="itemDisplay">{plant.attributes.common_name}</label>
+                <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
               </li>
             );
           })}

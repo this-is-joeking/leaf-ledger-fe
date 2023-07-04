@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Routes, Route }
 	from 'react-router-dom';
 import Home from './pages';
 import About from './pages/about';
-import Plants from './pages/plants';
+import Plants from './pages/plants/plants';
 import Login from './pages/login';
 import Contact from './pages/contact';
+import Plant from './pages/plants/plant'
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 				<Route path='/about' element={<About />} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='/plants' element={<Plants />} />
+				<Route path='/plants/:id' element={<Plant />} />
 				<Route path='/login' element={<Login />} />
 			</Routes>
 		</Router>

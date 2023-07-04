@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Plantlist from "../components/Plantlist";
-import '../App.css';
+import Plantlist from "../../components/Plantlist";
+import '../../App.css';
 
 class Plants extends Component {
   render() {
