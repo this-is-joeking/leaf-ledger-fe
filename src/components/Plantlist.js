@@ -30,6 +30,10 @@ export default function Plantlist() {
 
   return (
     <div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+        There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
+      </div>
       <div className="plantContainer">
         <input
           className="newPlant"
@@ -38,18 +42,22 @@ export default function Plantlist() {
           maxLength="75"
         />
       </div>
-      There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
-      <div className="wrapPlant">
-        <ul className="listPlants">
-          {allPlants.map((plant) => {
-            return (
-              <li className="plant" plant={plant} key={plant.id}>
-                <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
-              </li>
-            );
-          })}
-        </ul>
-        <Pagination count={ Math.ceil(totalPlants / perPage) } page={currentPage} onChange={handleChange} />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="wrapPlant">
+          <table className="listPlants plant-table" style={{ width: '100%' }}>
+            {allPlants.map((plant) => {
+              return (
+                <tr>
+                <td className="plant" plant={plant} key={plant.id}>
+                  <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
+                </td>
+
+                </tr>
+              );
+            })}
+          </table>
+          <Pagination count={ Math.ceil(totalPlants / perPage) } page={currentPage} onChange={handleChange} />
+        </div>
       </div>
     </div>
   );
