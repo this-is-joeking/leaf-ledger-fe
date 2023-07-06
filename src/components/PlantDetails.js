@@ -23,9 +23,6 @@ export default function PlantDetails() {
     getPlant();
   }, [plantId]);
 
-
-
-  {console.log(plant.common_name)}
   return (
     <div>
       <div className="topHeading">
