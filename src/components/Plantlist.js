@@ -7,26 +7,16 @@ export default function Plantlist() {
   const [perPage, setPerPage] = useState();
   const [totalPlants, setTotalPlants] = useState();
   const [allPlants, setAllPlants] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleKeyDown = (e: any) => {
-    if (e.code === "Enter") {
-    const link = `http://localhost:4000/plants?q=${encodeURIComponent(
-        inputValue
-      )}`;
-      window.location.href = link;
-    }
+    setSearchTerm(e.target.value);
   };
   
   useEffect(() => {
     const getPlants = async () => {
-      const dataFromServer = await axios.get(
-        `https://leaf-ledger-be.herokuapp.com/api/v1/plants?page=${currentPage}`
-      );
+      const url = `https://leaf-ledger-be.herokuapp.com/api/v1/plants?page=${currentPage}${searchTerm ? `&q=${encodeURIComponent(searchTerm)}` : ''}`;
+      const dataFromServer = await axios.get(url);
       const plants = dataFromServer.data.data;
       const totalPlants = dataFromServer.headers['total'];
       const perPage = dataFromServer.headers['per-page'];
@@ -35,7 +25,7 @@ export default function Plantlist() {
       setTotalPlants(totalPlants);
     };
     getPlants();
-  }, [currentPage]);
+  }, [currentPage, searchTerm]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -48,34 +38,33 @@ export default function Plantlist() {
         There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
       </div>
       <div className="plantContainer">
-        {/* <a href={`http://localhost:4000/plants?q=${encodeURIComponent(inputValue)}`}> */}
-          <input
-            className="newPlant"
-            type="text"
-            placeholder="Search for a plant by common name"
-            maxLength="75"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
+        <input
+          className="newPlant"
+          type="text"
+          placeholder="Search for a plant by common name"
+          maxLength="75"
+          value={searchTerm}
+          onChange={handleInputChange}
           />
-          <button >Search</button>
-        {/* </a> */}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="wrapPlant">
           <table className="listPlants plant-table" style={{ width: '100%' }}>
-            {allPlants.map((plant) => {
-              return (
-                <tr>
-                <td className="plant" plant={plant} key={plant.id}>
-                  <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
-                </td>
-
-                </tr>
-              );
-            })}
+            <tbody>
+              {allPlants.map((plant) => {
+                return (
+                  <tr key={plant.id}>
+                    <td className="plant" plant={plant} key={plant.id}>
+                      <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
-          <Pagination count={ Math.ceil(totalPlants / perPage) } page={currentPage} onChange={handleChange} />
+          {totalPlants && perPage && (
+            <Pagination count={ Math.ceil(totalPlants / perPage) } page={currentPage} onChange={handleChange} />
+          )}
         </div>
       </div>
     </div>
