@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
 import axios from "axios";
+import '../App.css';
 
 export default function PlantDetails() {
   const [plant, setPlant] = useState({});
@@ -28,7 +29,7 @@ export default function PlantDetails() {
       <div className="topHeading">
         <h1>{plant.common_name}</h1>
       </div>
-      <table>
+      <table className="plant-table">
         <tbody>
           {Object.entries(plant).map(([key, value]) => (
             <tr key ={key}>
