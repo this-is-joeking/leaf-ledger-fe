@@ -7,8 +7,21 @@ export default function Plantlist() {
   const [perPage, setPerPage] = useState();
   const [totalPlants, setTotalPlants] = useState();
   const [allPlants, setAllPlants] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
+  const handleKeyDown = (e: any) => {
+    if (e.code === "Enter") {
+    const link = `http://localhost:4000/plants?q=${encodeURIComponent(
+        inputValue
+      )}`;
+      window.location.href = link;
+    }
+  };
+  
   useEffect(() => {
     const getPlants = async () => {
       const dataFromServer = await axios.get(
@@ -35,12 +48,18 @@ export default function Plantlist() {
         There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
       </div>
       <div className="plantContainer">
-        <input
-          className="newPlant"
-          type="text"
-          placeholder="Search for a plant by common name"
-          maxLength="75"
-        />
+        {/* <a href={`http://localhost:4000/plants?q=${encodeURIComponent(inputValue)}`}> */}
+          <input
+            className="newPlant"
+            type="text"
+            placeholder="Search for a plant by common name"
+            maxLength="75"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <button >Search</button>
+        {/* </a> */}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="wrapPlant">
