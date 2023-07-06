@@ -1,14 +1,13 @@
 import React, { Component } from "react";
+import PlantDetails from "../../components/PlantDetails";
 import '../../App.css';
 
 class Plant extends Component {
   render() {
     return (
       <div className="mainContainer">
-        <div className="topHeading">
-          <h1>Plant Name goes here</h1>
-        </div>
-        
+
+        <PlantDetails />
       </div>
     );
   }
