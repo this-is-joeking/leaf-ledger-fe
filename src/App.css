@@ -146,6 +146,23 @@ input[placeholder] {
   border-radius: 25px;
 }
 
+.searchContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.searchForm {
+  display: flex;
+}
+
+.newPlant {
+  margin-right: 8px; /* Adjust the spacing between the input and button */
+}
+
+.searchButton {
+  border-radius: 30%; /* Adjust the radius to control the degree of rounding */
+}
+
 .plant-table {
   border-collapse: collapse;
   width: 100%;
