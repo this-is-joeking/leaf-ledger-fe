@@ -170,11 +170,41 @@ input[placeholder] {
 
 .plant-table {
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
 }
 
 .plantImage {
   width: 10%;
+}
+
+.plantImageDetails {
+  width: 50%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.detailsContainer {
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-items: flex-start; /* Align items vertically at the top */
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .detailsContainer {
+    flex-direction: column; /* Stack flex items vertically on small screens */
+  }
+
+  .plantImageDetails {
+    width: 100%; /* Make the image take full width on small screens */
+    margin-left: 0; /* Remove the left margin on small screens */
+    margin-bottom: 20px; /* Add spacing between the image and the table */
+  }
+
+  .plant-table {
+    width: 100%;
+  }
 }
 
 .plant-table td, .plant-table th {
@@ -185,6 +215,12 @@ input[placeholder] {
 .plant-table th {
   background-color: #f2f2f2;
   font-size: 1.5em;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #root {

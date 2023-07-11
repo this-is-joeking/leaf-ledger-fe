@@ -9,6 +9,7 @@ import Plants from './pages/plants/plants';
 import Login from './pages/login';
 import Contact from './pages/contact';
 import Plant from './pages/plants/plant'
+import NewPlant from './pages/plants/newPlant'
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 				<Route path='/plants' element={<Plants />} />
 				<Route path='/plants/:id' element={<Plant />} />
 				<Route path='/login' element={<Login />} />
+				<Route path='/plants/new' element={<NewPlant />} />
 			</Routes>
 		</Router>
 	);
