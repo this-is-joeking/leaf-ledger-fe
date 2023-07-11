@@ -64,7 +64,7 @@ export default function Plantlist() {
               {allPlants.map((plant) => {
                 return (
                   <tr key={plant.id}>
-                    <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' ></img></td>
+                    <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' alt="ai generated image of plant"></img></td>
                     <td className="plant" plant={plant} key={plant.id}>
                       <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
                     </td>

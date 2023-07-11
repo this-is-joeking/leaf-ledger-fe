@@ -28,7 +28,7 @@ export default function PlantDetails() {
     <div>
       <div className="topHeading">
         <h1>{plant.common_name}</h1>
-        <img src={plant.plant_img_url} width="20%"></img>
+        <img src={plant.plant_img_url} width="20%" alt="ai generated image of plant"></img>
       </div>
       <table className="plant-table">
         <tbody>
