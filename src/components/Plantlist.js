@@ -33,10 +33,13 @@ export default function Plantlist() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-
-        There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
-      </div>
+      {
+        totalPlants && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
+          </div>
+        )
+      }
       <div className="plantContainer">
         <input
           className="newPlant"
@@ -50,13 +53,22 @@ export default function Plantlist() {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="wrapPlant">
           <table className="listPlants plant-table" style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th>AI Image</th>
+                <th>Common Name</th>
+                <th>Scientific Name</th>
+              </tr>
+            </thead>
             <tbody>
               {allPlants.map((plant) => {
                 return (
                   <tr key={plant.id}>
+                    <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' ></img></td>
                     <td className="plant" plant={plant} key={plant.id}>
                       <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
                     </td>
+                    <td>{plant.attributes.scientific_name}</td>
                   </tr>
                 );
               })}

@@ -8,6 +8,7 @@ class Plant extends Component {
       <div className="mainContainer">
 
         <PlantDetails />
+        Back to <a href="/plants">all plants</a>
       </div>
     );
   }
