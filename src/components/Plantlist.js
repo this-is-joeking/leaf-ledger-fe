@@ -52,29 +52,37 @@ export default function Plantlist() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="wrapPlant">
-          <table className="listPlants plant-table" style={{ width: '100%' }}>
-            <thead>
-              <tr>
-                <th>AI Image</th>
-                <th>Common Name</th>
-                <th>Scientific Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allPlants.map((plant) => {
-                return (
-                  <tr key={plant.id}>
-                    <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' alt="ai generated rendering plant"></img></td>
-                    <td className="plant" plant={plant} key={plant.id}>
-                      <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
-                    </td>
-                    <td>{plant.attributes.scientific_name}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {totalPlants && perPage && (
+          {allPlants.length === 0 && (
+            <div className="no-results">
+              <p>Sorry, there are no plants that match <em>{searchTerm}</em></p>
+              <p>Click <a href={`/plants/new?name=${searchTerm}`}>here</a> to request the plant be grown. (It takes AI about 12 seconds to grow a new plant)</p>
+            </div>
+          )}
+          {allPlants.length !==0 && (
+            <table className="listPlants plant-table" style={{ width: '100%' }}>
+              <thead>
+                <tr>
+                  <th>AI Image</th>
+                  <th>Common Name</th>
+                  <th>Scientific Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allPlants.map((plant) => {
+                  return (
+                    <tr key={plant.id}>
+                      <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' alt="ai generated rendering plant"></img></td>
+                      <td className="plant" plant={plant} key={plant.id}>
+                        <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
+                      </td>
+                      <td>{plant.attributes.scientific_name}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+          {totalPlants && perPage && (allPlants.length !== 0) && (
             <Pagination count={ Math.ceil(totalPlants / perPage) } page={currentPage} onChange={handleChange} />
           )}
         </div>
