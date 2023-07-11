@@ -43,6 +43,11 @@
   position: relative;
   border-radius: 7px;
   margin: 0 auto;
+  padding-bottom: 200px;
+}
+
+body {
+  padding-bottom: 200px;
 }
 
 .wrapPlants {
@@ -166,6 +171,10 @@ input[placeholder] {
 .plant-table {
   border-collapse: collapse;
   width: 100%;
+}
+
+.plantImage {
+  width: 10%;
 }
 
 .plant-table td, .plant-table th {

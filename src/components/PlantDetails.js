@@ -28,15 +28,18 @@ export default function PlantDetails() {
     <div>
       <div className="topHeading">
         <h1>{plant.common_name}</h1>
+        <img src={plant.plant_img_url} width="20%" alt="ai generated rendering plant"></img>
       </div>
       <table className="plant-table">
         <tbody>
           {Object.entries(plant).map(([key, value]) => (
-            <tr key ={key}>
-              <td>{titleCase(key)}</td>
-              <td>{value}</td>
-            </tr>
-          ))}
+              key !== "plant_img_url" && (
+                <tr key={key}>
+                  <td>{titleCase(key)}</td>
+                  <td>{value}</td>
+                </tr>
+              )
+            ))}
         </tbody>
       </table>
     </div>
