@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination } from '@mui/material';
@@ -36,7 +37,16 @@ export default function Plantlist() {
       {
         totalPlants && (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            There are {totalPlants} plants in our system currently, but we are working on ways to grow this quickly
+            { searchTerm && (
+              <div>
+                There are {totalPlants} plants in our AI Garden matching your search, feel free to grow some more by typing a new plant name in the box below
+              </div>
+            )}
+            { !searchTerm && (
+              <div>
+                There are {totalPlants} plants in our AI Garden for you to browse or search.
+              </div>
+            )}
           </div>
         )
       }
@@ -72,7 +82,7 @@ export default function Plantlist() {
                   return (
                     <tr key={plant.id}>
                       <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' alt="ai generated rendering plant"></img></td>
-                      <td className="plant" plant={plant} key={plant.id}>
+                      <td className="plant" key={plant.id}>
                         <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
                       </td>
                       <td>{plant.attributes.scientific_name}</td>

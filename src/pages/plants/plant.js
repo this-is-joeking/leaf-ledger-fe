@@ -6,7 +6,6 @@ class Plant extends Component {
   render() {
     return (
       <div className="mainContainer">
-
         <PlantDetails />
         Back to <a href="/plants">all plants</a>
       </div>
