@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"
-import axios from "axios";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'
+import axios from 'axios';
 import '../App.css';
 
 export default function PlantDetails() {
@@ -26,17 +27,17 @@ export default function PlantDetails() {
 
   return (
     <div>
-      <div className="topHeading">
+      <div className='topHeading'>
         <h1>{plant.common_name}</h1>
       </div>
-      <div className="detailsContainer">
+      <div className='detailsContainer'>
       {plant.plant_img_url && (
-                  <img className="plantImageDetails" src={plant.plant_img_url} width="20%" alt="ai generated rendering plant" />
+                  <img className='plantImageDetails' src={plant.plant_img_url} width='20%' alt='ai generated rendering plant' />
         )}
-        <table className="plant-table">
+        <table className='plant-table'>
           <tbody>
             {Object.entries(plant).map(([key, value]) => (
-                key !== "plant_img_url" && (
+                key !== 'plant_img_url' && (
                   <tr key={key}>
                     <td>{titleCase(key)}</td>
                     <td>{value}</td>

@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            <h1>Welcome to Leaf Ledger</h1>
+            <h1>Welcome to PlantGPT</h1>
         </div>
     );
 };
