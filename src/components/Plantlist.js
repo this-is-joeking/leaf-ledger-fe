@@ -1,6 +1,6 @@
 import React from 'react';
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Pagination } from '@mui/material';
 
 export default function Plantlist() {
@@ -50,26 +50,26 @@ export default function Plantlist() {
           </div>
         )
       }
-      <div className="plantContainer">
+      <div className='plantContainer'>
         <input
-          className="newPlant"
-          type="text"
-          placeholder="Search for a plant by common name"
-          maxLength="75"
+          className='newPlant'
+          type='text'
+          placeholder='Search for a plant by common name'
+          maxLength='75'
           value={searchTerm}
           onChange={handleInputChange}
           />
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div className="wrapPlant">
+        <div className='wrapPlant'>
           {allPlants.length === 0 && (
-            <div className="no-results">
+            <div className='no-results'>
               <p>Sorry, there are no plants that match <em>{searchTerm}</em></p>
               <p>Click <a href={`/plants/new?name=${searchTerm}`}>here</a> to request the plant be grown. (It takes AI about 12 seconds to grow a new plant)</p>
             </div>
           )}
           {allPlants.length !==0 && (
-            <table className="listPlants plant-table" style={{ width: '100%' }}>
+            <table className='listPlants plant-table' style={{ width: '100%' }}>
               <thead>
                 <tr>
                   <th>AI Image</th>
@@ -81,8 +81,8 @@ export default function Plantlist() {
                 {allPlants.map((plant) => {
                   return (
                     <tr key={plant.id}>
-                      <td className="plantImage"><img src={plant.attributes.plant_img_url} width='100%' alt="ai generated rendering plant"></img></td>
-                      <td className="plant" key={plant.id}>
+                      <td className='plantImage'><img src={plant.attributes.plant_img_url} width='100%' alt='ai generated rendering plant'></img></td>
+                      <td className='plant' key={plant.id}>
                         <a href={'/plants/' + plant.id}>{plant.attributes.common_name}</a>
                       </td>
                       <td>{plant.attributes.scientific_name}</td>
