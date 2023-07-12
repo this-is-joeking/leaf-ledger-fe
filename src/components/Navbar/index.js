@@ -1,12 +1,18 @@
-import React from "react";
-import { Nav, NavLink, NavMenu }
+import React, { useState } from "react";
+import { Nav, NavLink, NavMenu, Bars }
     from "./NavbarElements";
  
 const Navbar = () => {
+    const [showMenu, setShowMenu] = useState(false);
+
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    }
     return (
         <>
             <Nav>
-                <NavMenu>
+                <Bars onClick={toggleMenu} />
+                <NavMenu showMenu={showMenu}>
                     <NavLink to="/" activeStyle={{ color:'black' }}>
                         Home
                     </NavLink>
