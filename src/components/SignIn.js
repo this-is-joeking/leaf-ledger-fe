@@ -8,26 +8,8 @@ export default function SignIn() {
 
 	const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log('Login Failed:', error),
-    flow: 'auth-code',
-    access: 'offline'
+    onError: (error) => console.log('Login Failed:', error)
 	});
-
-	// useEffect(() => {
-  //   if (user) {
-  //     axios
-  //       .get(`https://www.googleapis.com/oauth2/v1/userinfo`, {
-  //         headers: {
-  //           Authorization: `Bearer ${user.access_token}`,
-  //           Accept: 'application/json'
-  //         }
-  //       })
-  //       .then((res) => {
-  //         setProfile(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [user] );
 
   useEffect(() => {
     if (user) {
@@ -43,6 +25,9 @@ export default function SignIn() {
           Accept: 'application/json'
         }
       })
+      .then(function(response) {
+        console.log(response.data)
+      })
       .catch((err) => console.log(err));
   };
 
@@ -56,8 +41,6 @@ return (
       <h2>React Google Login</h2>
           <br />
           <br />
-          {/* {console.log(profile)} */}
-          {console.log(user.getAuthResponse().id_token)}
           {profile ? (
               <div>
                   <img src={profile.picture} alt='user image' />
@@ -66,7 +49,6 @@ return (
                   <p>Email Address: {profile.email}</p>
                   <br />
                   <br />
-                  {/* {console.log(user.access_token)} */}
                   <button onClick={logOut}>Log out</button>
               </div>
           ) : (
