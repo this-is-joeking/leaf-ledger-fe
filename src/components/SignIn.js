@@ -1,73 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function SignIn() {
-  const [ user, setUser ] = useState([]);
-	const [ profile, setProfile ] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-	const login = useGoogleLogin({
-			onSuccess: (codeResponse) => setUser(codeResponse),
-			onError: (error) => console.log('Login Failed:', error)
-	});
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => checkGoogleToken(codeResponse),
+    onError: (error) => console.log('Login Failed:', error)
+  });
 
-	useEffect(
-    () => {
-      if (user) {
-        axios
-          .get(`https://www.googleapis.com/oauth2/v1/userinfo`, {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: 'application/json'
-            }
-          })
-          .then((res) => {
-            sendUserToServer(res.data);
-          })
-          .catch((err) => console.log(err));
-      }
-    },
-    [ user ]
-	);
-
-  const sendUserToServer = (token) => {
+  const checkGoogleToken = (googleResponse) => {
     axios
-      .post('http://127.0.0.1:3000/api/v1/session', {
+      .get(`https://www.googleapis.com/oauth2/v1/userinfo`, {
         headers: {
-          GoogleToken: token,
+          Authorization: `Bearer ${googleResponse.access_token}`,
           Accept: 'application/json'
         }
       })
-      .then(function(response) {
-        console.log(response.data)
+      .then((res) => {
+        sendUserToServer(res.data);
       })
       .catch((err) => console.log(err));
   };
 
-	const logOut = () => {
-			googleLogout();
-			setProfile(null);
-	};
-  
-return (
+  const sendUserToServer = (user) => {
+    axios
+      .post('http://127.0.0.1:3000/api/v1/users', {
+        data: user
+      })
+      .then(function (response) {
+        const profileData = response.data.data;
+        Cookies.set('profile', JSON.stringify(profileData));
+        setProfile(profileData);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    const profileCookie = Cookies.get('profile');
+    if (profileCookie) {
+      const profileData = JSON.parse(profileCookie);
+      setProfile(profileData);
+    }
+    setLoading(false);
+  }, []);
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+    Cookies.remove('profile');
+  };
+
+  return (
     <div>
       <h2>React Google Login</h2>
+      <br />
+      <br />
+      {profile ? (
+        <div>
+          <img src={profile.attributes.picture} alt='user image' />
+          <h3>User Logged in</h3>
+          <p>Name: {profile.attributes.name}</p>
+          <p>Email Address: {profile.attributes.email}</p>
           <br />
           <br />
-          {profile ? (
-              <div>
-                  <img src={profile.picture} alt='user image' />
-                  <h3>User Logged in</h3>
-                  <p>Name: {profile.name}</p>
-                  <p>Email Address: {profile.email}</p>
-                  <br />
-                  <br />
-                  <button onClick={logOut}>Log out</button>
-              </div>
-          ) : (
-              <button onClick={() => login()}>Sign in with Google 🚀 </button>
-          )}
+          <button onClick={logOut}>Log out</button>
+        </div>
+      ) : (
+        !loading && (
+          <button onClick={() => login()}>Sign in with Google 🚀 </button>
+        )
+      )}
     </div>
   );
-
 }
