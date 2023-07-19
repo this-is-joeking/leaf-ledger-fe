@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import LoadingPlant from './LoadingPlant'
 import axios from 'axios';

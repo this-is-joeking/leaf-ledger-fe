@@ -12,6 +12,7 @@ import Plant from './pages/plants/plant'
 import NewPlant from './pages/plants/newPlant'
 import Footer from './components/Footer/Footer'
 
+
 function App() {
 	return (
 		<div>

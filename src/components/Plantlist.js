@@ -1,7 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Pagination } from '@mui/material';
+import ProfileCookie from './ProfileCookie';
 
 export default function Plantlist() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,6 +9,7 @@ export default function Plantlist() {
   const [totalPlants, setTotalPlants] = useState();
   const [allPlants, setAllPlants] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const profile = ProfileCookie();
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -65,7 +66,11 @@ export default function Plantlist() {
           {allPlants.length === 0 && (
             <div className='no-results'>
               <p>Sorry, there are no plants that match <em>{searchTerm}</em></p>
-              <p>Click <a href={`/plants/new?name=${searchTerm}`}>here</a> to request the plant be grown. (It takes AI about 12 seconds to grow a new plant)</p>
+              {profile ? (
+                <p>Click <a href={`/plants/new?name=${searchTerm}`}>here</a> to request the plant be grown. (It takes AI about 12 seconds to grow a new plant)</p>
+              ) : (
+                <p><a href='/login'>Login</a> if you want to grow this plant in our database</p>
+              )}
             </div>
           )}
           {allPlants.length !==0 && (
