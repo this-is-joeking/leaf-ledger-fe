@@ -28,7 +28,7 @@ export default function SignIn() {
 
   const sendUserToServer = (user) => {
     axios
-      .post('http://127.0.0.1:3000/api/v1/users', {
+      .post('https://leaf-ledger-be.herokuapp.com/api/v1/users', {
         data: user
       })
       .then(function (response) {
@@ -57,16 +57,13 @@ export default function SignIn() {
 
   return (
     <div>
-      <h2>React Google Login</h2>
-      <br />
-      <br />
       {profile ? (
         <div>
           <img src={profile.attributes.picture} alt='user image' />
-          <h3>User Logged in</h3>
           <p>Name: {profile.attributes.name}</p>
           <p>Email Address: {profile.attributes.email}</p>
           <br />
+          {console.log(profile.attributes)}
           <br />
           <button onClick={logOut}>Log out</button>
         </div>
