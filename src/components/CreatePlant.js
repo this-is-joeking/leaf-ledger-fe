@@ -9,6 +9,7 @@ export default function CreatePlant() {
   const searchParams = new URLSearchParams(location.search);
   const plantName = searchParams.get('name');
   const unprocessableEntity = 422;
+  const tooManyRequests = 429;
   const [plantId, setPlantId] = useState();
   const [error, setError] = useState(null);
   const [requestSent, setRequestSent] = useState(false);
@@ -29,7 +30,12 @@ export default function CreatePlant() {
             setError(
               `${plantName} does not seem like a plant name, maybe try checking your spelling or use the scientific name`
             );
-          } else {
+          } else if (
+            error.response &&
+            error.response.status === tooManyRequests
+           ) {
+            setError('Requests to grow new plants are limited to five per hour, please try again later')
+           } else {
             setError('An error occurred. Please try again later.');
           }
         }

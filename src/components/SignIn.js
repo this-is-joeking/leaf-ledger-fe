@@ -63,7 +63,6 @@ export default function SignIn() {
           <p>Name: {profile.attributes.name}</p>
           <p>Email Address: {profile.attributes.email}</p>
           <br />
-          {console.log(profile.attributes)}
           <br />
           <button onClick={logOut}>Log out</button>
         </div>
